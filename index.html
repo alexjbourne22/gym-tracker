@@ -92,7 +92,7 @@
         <th>Set 1</th>
         <th>Set 2</th>
         <th>Set 3</th>
-        <th>Notes</th>
+        <th>Notes</th><th>Action</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -194,6 +194,15 @@
     document.getElementById("newExercise").value = "";
   }
 
+  
+  function deleteWorkout(ts) {
+    let logs = JSON.parse(localStorage.getItem("gymLogs") || "[]");
+    logs = logs.filter(log => log.timestamp !== ts);
+    localStorage.setItem("gymLogs", JSON.stringify(logs));
+    loadLogs();
+  }
+
+
   function loadLogs() {
     const logs = JSON.parse(localStorage.getItem("gymLogs") || "[]");
     const filter = document.getElementById("filterExercise").value;
@@ -208,6 +217,7 @@
         <td>${log.reps2}x${log.weight2}</td>
         <td>${log.reps3}x${log.weight3}</td>
         <td>${log.notes}</td>`;
+<td><button onclick="deleteWorkout(${log.timestamp})">Delete</button></td>
       tbody.appendChild(row);
     });
   }
@@ -299,6 +309,8 @@
       reps3: document.getElementById("reps3").value,
       weight3: document.getElementById("weight3").value,
       notes: document.getElementById("notes").value
+    ,
+      timestamp: Date.now()
     };
     const logs = JSON.parse(localStorage.getItem("gymLogs") || "[]");
     logs.push(log);
