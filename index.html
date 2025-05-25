@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +36,11 @@
     .set-inputs input {
       width: 50%;
     }
+    .exercise-edit-row {
+      display: flex;
+      gap: 0.5em;
+      margin-bottom: 0.5em;
+    }
   </style>
 </head>
 <body>
@@ -45,52 +51,7 @@
     <input type="date" id="date" required />
 
     <label for="exercise">Exercise</label>
-    <select id="exercise" required>
-        <optgroup label="Chest">
-          <option value="8ab41f51-de41-4f41-8be9-d1e6f1d82bbc">Chest Press (Machine)</option>
-          <option value="8b973192-9c58-40a7-a708-76500dfe0d5b">Incline Chest Press (Machine)</option>
-          <option value="e0a1972c-89ff-4c73-b442-2f258bce9c38">Pec Deck (Machine)</option>
-          <option value="d88ee148-fd48-4a60-b442-394d512ff0f7">Bench Press (Barbell)</option>
-          <option value="3f972991-fde4-4cbf-88bd-442dc55b7b51">Incline Bench Press (Barbell)</option>
-          <option value="d13d360b-2b31-48cb-8c48-8c914061f5b7">Dumbbell Chest Press</option>
-          <option value="40fbda33-44fe-42e4-bf61-bf5788033b88">Dumbbell Incline Press</option>
-          <option value="eb7d9c83-e291-4546-a5bf-8fbc480b6d18">Dumbbell Fly</option>
-        </optgroup>
-        <optgroup label="Back">
-          <option value="13b9d4cd-53f0-4a8b-86af-93083aba598d">Lat Pulldown (Machine)</option>
-          <option value="eac513f2-ebfe-49ef-b88c-f5656bcb741c">Seated Row (Machine)</option>
-          <option value="969f797d-65a5-4abf-923a-45030136f05e">Barbell Row</option>
-          <option value="6a09f022-abe4-4fc6-a206-8f545fd8fac1">Dumbbell Row</option>
-        </optgroup>
-        <optgroup label="Shoulders">
-          <option value="bd976fcb-b092-4719-a53f-db6344be1eea">Shoulder Press (Machine)</option>
-          <option value="afaee39d-b074-426d-a897-81dc3abfbaf9">Lateral Raise (Machine)</option>
-          <option value="8179070f-2e31-41c7-bc30-7161c3177703">Rear Delt Fly (Machine)</option>
-          <option value="736ff0e7-288a-4e19-b7ec-70b6c01a2422">Shoulder Press (Barbell)</option>
-          <option value="dc201bce-1192-42de-b6b3-b1fcf7737b84">Dumbbell Shoulder Press</option>
-          <option value="c46dc50d-e7d4-480a-a254-74d012c600bd">Dumbbell Lateral Raise</option>
-        </optgroup>
-        <optgroup label="Biceps">
-          <option value="fcfc4fd0-f4b5-4a2e-9aab-b5688df3634e">Bicep Curl (Machine)</option>
-          <option value="b1c0f35b-6ac9-4553-8ccf-20219f0ee400">Dumbbell Bicep Curl</option>
-        </optgroup>
-        <optgroup label="Triceps">
-          <option value="355c6e78-f551-4358-bd2b-ce7be2899b5f">Tricep Pushdown (Machine)</option>
-          <option value="cb937f81-4669-493f-8962-b96dc6a3f00c">Dumbbell Tricep Extension</option>
-        </optgroup>
-        <optgroup label="Legs">
-          <option value="7acd3e3a-78a7-4557-891d-75bcf5e515ce">Leg Press (Machine)</option>
-          <option value="ee14b10d-a677-4769-9547-baafb70bcc77">Leg Extension (Machine)</option>
-          <option value="13311b48-38a7-487b-bf42-2789ef4ceccb">Leg Curl (Machine)</option>
-          <option value="53a9f023-9b72-45b3-a433-8c16fe70c1b7">Calf Raise (Machine)</option>
-          <option value="ecc17177-90b4-4914-852a-971278b40b50">Squat (Barbell)</option>
-          <option value="201ea0c7-561a-43d4-8c7a-cc6f76eaba9b">Deadlift (Barbell)</option>
-          <option value="3a9c4a30-be49-4081-9601-1896a449f4b0">Dumbbell Lunge</option>
-        </optgroup>
-        <optgroup label="Abs">
-          <option value="ded3dad0-3c55-466e-b9bd-ed4f5a7cddde">Ab Crunch (Machine)</option>
-        </optgroup>
-    </select>
+    <select id="exercise" required></select>
 
     <input type="text" id="newExercise" placeholder="Add new exercise" />
     <select id="newExerciseGroup">
@@ -141,9 +102,9 @@
       <tr>
         <th>Date</th>
         <th>Exercise</th>
-        <th>Set 1 (Reps × kg)</th>
-        <th>Set 2 (Reps × kg)</th>
-        <th>Set 3 (Reps × kg)</th>
+        <th>Set 1</th>
+        <th>Set 2</th>
+        <th>Set 3</th>
         <th>Notes</th>
       </tr>
     </thead>
@@ -152,48 +113,34 @@
 
   <button onclick="exportCSV()">Export to CSV</button>
 
-  
-  
   <h2>Manage Exercises</h2>
   <div id="exerciseManager"></div>
 
 <script>
   const defaultExercises = [
-    { id: "chest1", name: "Chest Press (Machine)", group: "Chest" },
-    { id: "chest2", name: "Incline Chest Press (Machine)", group: "Chest" },
-    { id: "chest3", name: "Pec Deck (Machine)", group: "Chest" },
-    { id: "chest4", name: "Bench Press (Barbell)", group: "Chest" },
-    { id: "chest5", name: "Incline Bench Press (Barbell)", group: "Chest" },
-    { id: "chest6", name: "Dumbbell Chest Press", group: "Chest" },
-    { id: "chest7", name: "Dumbbell Incline Press", group: "Chest" },
-    { id: "chest8", name: "Dumbbell Fly", group: "Chest" },
-    { id: "back1", name: "Lat Pulldown (Machine)", group: "Back" },
-    { id: "back2", name: "Seated Row (Machine)", group: "Back" },
-    { id: "back3", name: "Barbell Row", group: "Back" },
-    { id: "back4", name: "Dumbbell Row", group: "Back" },
-    { id: "shoulders1", name: "Shoulder Press (Machine)", group: "Shoulders" },
-    { id: "shoulders2", name: "Lateral Raise (Machine)", group: "Shoulders" },
-    { id: "shoulders3", name: "Rear Delt Fly (Machine)", group: "Shoulders" },
-    { id: "shoulders4", name: "Shoulder Press (Barbell)", group: "Shoulders" },
-    { id: "shoulders5", name: "Dumbbell Shoulder Press", group: "Shoulders" },
-    { id: "shoulders6", name: "Dumbbell Lateral Raise", group: "Shoulders" },
-    { id: "biceps1", name: "Bicep Curl (Machine)", group: "Biceps" },
-    { id: "biceps2", name: "Dumbbell Bicep Curl", group: "Biceps" },
-    { id: "triceps1", name: "Tricep Pushdown (Machine)", group: "Triceps" },
-    { id: "triceps2", name: "Dumbbell Tricep Extension", group: "Triceps" },
-    { id: "legs1", name: "Leg Press (Machine)", group: "Legs" },
-    { id: "legs2", name: "Leg Extension (Machine)", group: "Legs" },
-    { id: "legs3", name: "Leg Curl (Machine)", group: "Legs" },
-    { id: "legs4", name: "Calf Raise (Machine)", group: "Legs" },
-    { id: "legs5", name: "Squat (Barbell)", group: "Legs" },
-    { id: "legs6", name: "Deadlift (Barbell)", group: "Legs" },
-    { id: "legs7", name: "Dumbbell Lunge", group: "Legs" },
-    { id: "abs1", name: "Ab Crunch (Machine)", group: "Abs" }
+    { id: "bench", name: "Bench Press", group: "Chest" },
+    { id: "lat", name: "Lat Pulldown", group: "Back" },
+    { id: "row", name: "Seated Row", group: "Back" },
+    { id: "squat", name: "Squat", group: "Legs" },
+    { id: "curl", name: "Bicep Curl", group: "Biceps" }
   ];
 
-  function groupExercises(exercises) {
+  function saveExercises(exercises) {
+    localStorage.setItem("exercises", JSON.stringify(exercises));
+  }
+
+  function loadExercises() {
+    const stored = JSON.parse(localStorage.getItem("exercises") || "null");
+    if (!stored || stored.length === 0) {
+      saveExercises(defaultExercises);
+      return defaultExercises;
+    }
+    return stored;
+  }
+
+  function groupExercises(exs) {
     const grouped = {};
-    exercises.forEach(ex => {
+    exs.forEach(ex => {
       if (!grouped[ex.group]) grouped[ex.group] = [];
       grouped[ex.group].push(ex);
     });
@@ -201,43 +148,45 @@
   }
 
   function renderDropdowns() {
-    const saved = JSON.parse(localStorage.getItem("exercises") || "[]");
-    const exercises = saved.length ? saved : defaultExercises;
-    localStorage.setItem("exercises", JSON.stringify(exercises));
+    const exercises = loadExercises();
+    const exSel = document.getElementById("exercise");
+    const filterSel = document.getElementById("filterExercise");
+    exSel.innerHTML = "";
+    filterSel.innerHTML = '<option value="">-- All Exercises --</option>';
     const grouped = groupExercises(exercises);
-
-    const exDropdown = document.getElementById("exercise");
-    const filterDropdown = document.getElementById("filterExercise");
-    exDropdown.innerHTML = "";
-    filterDropdown.innerHTML = '<option value="">-- All Exercises --</option>';
-
     for (const group in grouped) {
-      const groupEl1 = document.createElement("optgroup");
-      const groupEl2 = document.createElement("optgroup");
-      groupEl1.label = group;
-      groupEl2.label = group;
-
+      const exGroup = document.createElement("optgroup");
+      const flGroup = document.createElement("optgroup");
+      exGroup.label = group;
+      flGroup.label = group;
       grouped[group].forEach(ex => {
-        const opt1 = document.createElement("option");
-        opt1.value = ex.id;
-        opt1.textContent = ex.name;
-        groupEl1.appendChild(opt1);
-
-        const opt2 = document.createElement("option");
-        opt2.value = ex.id;
-        opt2.textContent = ex.name;
-        groupEl2.appendChild(opt2);
+        const opt1 = new Option(ex.name, ex.id);
+        const opt2 = new Option(ex.name, ex.id);
+        exGroup.appendChild(opt1);
+        flGroup.appendChild(opt2);
       });
-
-      exDropdown.appendChild(groupEl1);
-      filterDropdown.appendChild(groupEl2);
+      exSel.appendChild(exGroup);
+      filterSel.appendChild(flGroup);
     }
   }
 
   function getExerciseName(id) {
-    const exercises = JSON.parse(localStorage.getItem("exercises") || "[]");
-    const match = exercises.find(e => e.id === id);
-    return match ? match.name : "Unknown";
+    const all = loadExercises();
+    const ex = all.find(e => e.id === id);
+    return ex ? ex.name : "(Unknown)";
+  }
+
+  function addExercise() {
+    const name = document.getElementById("newExercise").value.trim();
+    const group = document.getElementById("newExerciseGroup").value;
+    if (!name) return;
+    const id = "id-" + Date.now();
+    const all = loadExercises();
+    all.push({ id, name, group });
+    saveExercises(all);
+    renderDropdowns();
+    manageExercises();
+    document.getElementById("newExercise").value = "";
   }
 
   function loadLogs() {
@@ -245,7 +194,7 @@
     const filter = document.getElementById("filterExercise").value;
     const tbody = document.querySelector("#logTable tbody");
     tbody.innerHTML = "";
-    logs.filter(log => !filter || log.exerciseId === filter).forEach(log => {
+    logs.filter(l => !filter || l.exerciseId === filter).forEach(log => {
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${log.date}</td>
@@ -253,56 +202,30 @@
         <td>${log.reps1}x${log.weight1}</td>
         <td>${log.reps2}x${log.weight2}</td>
         <td>${log.reps3}x${log.weight3}</td>
-        <td>${log.notes}</td>
-      `;
+        <td>${log.notes}</td>`;
       tbody.appendChild(row);
     });
   }
 
-  function addExercise() {
-    const name = document.getElementById("newExercise").value.trim();
-    const group = document.getElementById("newExerciseGroup").value;
-    if (!name) return;
-    const id = "custom-" + Date.now();
-    const newEx = { id, name, group };
-    let exercises = JSON.parse(localStorage.getItem("exercises") || "[]");
-    exercises.push(newEx);
-    localStorage.setItem("exercises", JSON.stringify(exercises));
-    document.getElementById("newExercise").value = "";
-    renderDropdowns();
-    manageExercises();
-  }
-
-  
   function manageExercises() {
-    const container = document.getElementById("exerciseManager");
-    const exercises = JSON.parse(localStorage.getItem("exercises") || "[]");
-    container.innerHTML = "";
-
-    if (exercises.length === 0) {
-      container.innerHTML = "<p><em>No exercises to manage. Add one above.</em></p>";
-      return;
-    }
-
-    const grouped = groupExercises(exercises);
+    const list = loadExercises();
+    const div = document.getElementById("exerciseManager");
+    div.innerHTML = "";
+    const grouped = groupExercises(list);
     for (const group in grouped) {
-      const section = document.createElement("div");
-      section.innerHTML = `<h3>${group}</h3>`;
+      const groupTitle = document.createElement("h3");
+      groupTitle.textContent = group;
+      div.appendChild(groupTitle);
       grouped[group].forEach(ex => {
         const row = document.createElement("div");
-        row.style.display = "flex";
-        row.style.gap = "0.5em";
-        row.style.marginBottom = "0.5em";
+        row.className = "exercise-edit-row";
 
         const nameInput = document.createElement("input");
         nameInput.value = ex.name;
-        nameInput.style.flex = "2";
 
         const groupSelect = document.createElement("select");
         ["Chest", "Back", "Shoulders", "Biceps", "Triceps", "Legs", "Abs", "Other"].forEach(g => {
-          const o = document.createElement("option");
-          o.value = g;
-          o.textContent = g;
+          const o = new Option(g, g);
           if (g === ex.group) o.selected = true;
           groupSelect.appendChild(o);
         });
@@ -312,7 +235,7 @@
         saveBtn.onclick = () => {
           ex.name = nameInput.value.trim();
           ex.group = groupSelect.value;
-          localStorage.setItem("exercises", JSON.stringify(exercises));
+          saveExercises(list);
           renderDropdowns();
           manageExercises();
         };
@@ -320,102 +243,71 @@
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "Delete";
         deleteBtn.onclick = () => {
-          const index = exercises.findIndex(e => e.id === ex.id);
-          if (index !== -1 && confirm("Delete this exercise?")) {
-            exercises.splice(index, 1);
-            localStorage.setItem("exercises", JSON.stringify(exercises));
-            renderDropdowns();
-            manageExercises();
+          if (confirm("Delete this exercise?")) {
+            const ix = list.findIndex(e => e.id === ex.id);
+            if (ix !== -1) {
+              list.splice(ix, 1);
+              saveExercises(list);
+              renderDropdowns();
+              manageExercises();
+            }
           }
         };
 
-        row.appendChild(nameInput);
-        row.appendChild(groupSelect);
-        row.appendChild(saveBtn);
-        row.appendChild(deleteBtn);
-        section.appendChild(row);
+        row.append(nameInput, groupSelect, saveBtn, deleteBtn);
+        div.appendChild(row);
       });
-      container.appendChild(section);
     }
   }
-</h3>`;
-      grouped[group].forEach(ex => {
-        const row = document.createElement("div");
-        row.style.display = "flex";
-        row.style.gap = "0.5em";
-        row.style.marginBottom = "0.5em";
 
-        const nameInput = document.createElement("input");
-        nameInput.value = ex.name;
-        nameInput.style.flex = "2";
-
-        const groupSelect = document.createElement("select");
-        ["Chest", "Back", "Shoulders", "Biceps", "Triceps", "Legs", "Abs", "Other"].forEach(g => {
-          const o = document.createElement("option");
-          o.value = g;
-          o.textContent = g;
-          if (g === ex.group) o.selected = true;
-          groupSelect.appendChild(o);
-        });
-
-        const saveBtn = document.createElement("button");
-        saveBtn.textContent = "Save";
-        saveBtn.onclick = () => {
-          ex.name = nameInput.value.trim();
-          ex.group = groupSelect.value;
-          localStorage.setItem("exercises", JSON.stringify(exercises));
-          renderDropdowns();
-          manageExercises();
-        };
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
-        deleteBtn.onclick = () => {
-          const index = exercises.findIndex(e => e.id === ex.id);
-          if (index !== -1 && confirm("Delete this exercise?")) {
-            exercises.splice(index, 1);
-            localStorage.setItem("exercises", JSON.stringify(exercises));
-            renderDropdowns();
-            manageExercises();
-          }
-        };
-
-        row.appendChild(nameInput);
-        row.appendChild(groupSelect);
-        row.appendChild(saveBtn);
-        row.appendChild(deleteBtn);
-        section.appendChild(row);
-      });
-      container.appendChild(section);
-    }
+  function exportCSV() {
+    const logs = JSON.parse(localStorage.getItem("gymLogs") || "[]");
+    const csv = ["Date,Exercise,Set 1,Set 2,Set 3,Notes"];
+    logs.forEach(log => {
+      csv.push([
+        log.date,
+        getExerciseName(log.exerciseId),
+        `${log.reps1}x${log.weight1}`,
+        `${log.reps2}x${log.weight2}`,
+        `${log.reps3}x${log.weight3}`,
+        log.notes.replace(/,/g, " ")
+      ].join(","));
+    });
+    const blob = new Blob([csv.join("\n")], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "gym_progress.csv";
+    a.click();
+    URL.revokeObjectURL(url);
   }
+
+  document.getElementById("workoutForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const log = {
+      date: document.getElementById("date").value,
+      exerciseId: document.getElementById("exercise").value,
+      reps1: document.getElementById("reps1").value,
+      weight1: document.getElementById("weight1").value,
+      reps2: document.getElementById("reps2").value,
+      weight2: document.getElementById("weight2").value,
+      reps3: document.getElementById("reps3").value,
+      weight3: document.getElementById("weight3").value,
+      notes: document.getElementById("notes").value
+    };
+    const logs = JSON.parse(localStorage.getItem("gymLogs") || "[]");
+    logs.push(log);
+    localStorage.setItem("gymLogs", JSON.stringify(logs));
+    this.reset();
+    document.getElementById("date").valueAsDate = new Date();
+    loadLogs();
+  });
 
   document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("date").valueAsDate = new Date();
     renderDropdowns();
     loadLogs();
     manageExercises();
-
-    document.getElementById("workoutForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const log = {
-        date: document.getElementById("date").value,
-        exerciseId: document.getElementById("exercise").value,
-        reps1: document.getElementById("reps1").value,
-        weight1: document.getElementById("weight1").value,
-        reps2: document.getElementById("reps2").value,
-        weight2: document.getElementById("weight2").value,
-        reps3: document.getElementById("reps3").value,
-        weight3: document.getElementById("weight3").value,
-        notes: document.getElementById("notes").value
-      };
-      let logs = JSON.parse(localStorage.getItem("gymLogs") || "[]");
-      logs.push(log);
-      localStorage.setItem("gymLogs", JSON.stringify(logs));
-      loadLogs();
-      this.reset();
-      document.getElementById("date").valueAsDate = new Date();
-    });
   });
 </script>
 </body>
