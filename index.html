@@ -51,7 +51,52 @@
     <input type="date" id="date" required />
 
     <label for="exercise">Exercise</label>
-    <select id="exercise" required></select>
+    <select id="exercise" required>
+<optgroup label="Chest">
+  <option value="chest1">Chest Press (Machine)</option>
+  <option value="chest2">Incline Chest Press (Machine)</option>
+  <option value="chest3">Pec Deck (Machine)</option>
+  <option value="chest4">Bench Press (Barbell)</option>
+  <option value="chest5">Incline Bench Press (Barbell)</option>
+  <option value="chest6">Dumbbell Chest Press</option>
+  <option value="chest7">Dumbbell Incline Press</option>
+  <option value="chest8">Dumbbell Fly</option>
+</optgroup>
+<optgroup label="Back">
+  <option value="back1">Lat Pulldown (Machine)</option>
+  <option value="back2">Seated Row (Machine)</option>
+  <option value="back3">Barbell Row</option>
+  <option value="back4">Dumbbell Row</option>
+</optgroup>
+<optgroup label="Shoulders">
+  <option value="shoulders1">Shoulder Press (Machine)</option>
+  <option value="shoulders2">Lateral Raise (Machine)</option>
+  <option value="shoulders3">Rear Delt Fly (Machine)</option>
+  <option value="shoulders4">Shoulder Press (Barbell)</option>
+  <option value="shoulders5">Dumbbell Shoulder Press</option>
+  <option value="shoulders6">Dumbbell Lateral Raise</option>
+</optgroup>
+<optgroup label="Biceps">
+  <option value="biceps1">Bicep Curl (Machine)</option>
+  <option value="biceps2">Dumbbell Bicep Curl</option>
+</optgroup>
+<optgroup label="Triceps">
+  <option value="triceps1">Tricep Pushdown (Machine)</option>
+  <option value="triceps2">Dumbbell Tricep Extension</option>
+</optgroup>
+<optgroup label="Legs">
+  <option value="legs1">Leg Press (Machine)</option>
+  <option value="legs2">Leg Extension (Machine)</option>
+  <option value="legs3">Leg Curl (Machine)</option>
+  <option value="legs4">Calf Raise (Machine)</option>
+  <option value="legs5">Squat (Barbell)</option>
+  <option value="legs6">Deadlift (Barbell)</option>
+  <option value="legs7">Dumbbell Lunge</option>
+</optgroup>
+<optgroup label="Abs">
+  <option value="abs1">Ab Crunch (Machine)</option>
+</optgroup>
+</select>
 
     <label>Set 1</label>
     <div class="set-inputs">
@@ -82,6 +127,51 @@
   <label for="filterExercise">Filter by Exercise</label>
   <select id="filterExercise" onchange="loadLogs()">
     <option value="">-- All Exercises --</option>
+
+<optgroup label="Chest">
+  <option value="chest1">Chest Press (Machine)</option>
+  <option value="chest2">Incline Chest Press (Machine)</option>
+  <option value="chest3">Pec Deck (Machine)</option>
+  <option value="chest4">Bench Press (Barbell)</option>
+  <option value="chest5">Incline Bench Press (Barbell)</option>
+  <option value="chest6">Dumbbell Chest Press</option>
+  <option value="chest7">Dumbbell Incline Press</option>
+  <option value="chest8">Dumbbell Fly</option>
+</optgroup>
+<optgroup label="Back">
+  <option value="back1">Lat Pulldown (Machine)</option>
+  <option value="back2">Seated Row (Machine)</option>
+  <option value="back3">Barbell Row</option>
+  <option value="back4">Dumbbell Row</option>
+</optgroup>
+<optgroup label="Shoulders">
+  <option value="shoulders1">Shoulder Press (Machine)</option>
+  <option value="shoulders2">Lateral Raise (Machine)</option>
+  <option value="shoulders3">Rear Delt Fly (Machine)</option>
+  <option value="shoulders4">Shoulder Press (Barbell)</option>
+  <option value="shoulders5">Dumbbell Shoulder Press</option>
+  <option value="shoulders6">Dumbbell Lateral Raise</option>
+</optgroup>
+<optgroup label="Biceps">
+  <option value="biceps1">Bicep Curl (Machine)</option>
+  <option value="biceps2">Dumbbell Bicep Curl</option>
+</optgroup>
+<optgroup label="Triceps">
+  <option value="triceps1">Tricep Pushdown (Machine)</option>
+  <option value="triceps2">Dumbbell Tricep Extension</option>
+</optgroup>
+<optgroup label="Legs">
+  <option value="legs1">Leg Press (Machine)</option>
+  <option value="legs2">Leg Extension (Machine)</option>
+  <option value="legs3">Leg Curl (Machine)</option>
+  <option value="legs4">Calf Raise (Machine)</option>
+  <option value="legs5">Squat (Barbell)</option>
+  <option value="legs6">Deadlift (Barbell)</option>
+  <option value="legs7">Dumbbell Lunge</option>
+</optgroup>
+<optgroup label="Abs">
+  <option value="abs1">Ab Crunch (Machine)</option>
+</optgroup>
   </select>
 
   <table id="logTable">
@@ -120,6 +210,49 @@
   </div>
 </div>
 <div id="exerciseManager"></div>
+
+
+<script>
+  const defaultExercises = [
+    { id: "chest1", name: "Chest Press (Machine)", group: "Chest" },
+    { id: "chest2", name: "Incline Chest Press (Machine)", group: "Chest" },
+    { id: "chest3", name: "Pec Deck (Machine)", group: "Chest" },
+    { id: "chest4", name: "Bench Press (Barbell)", group: "Chest" },
+    { id: "chest5", name: "Incline Bench Press (Barbell)", group: "Chest" },
+    { id: "chest6", name: "Dumbbell Chest Press", group: "Chest" },
+    { id: "chest7", name: "Dumbbell Incline Press", group: "Chest" },
+    { id: "chest8", name: "Dumbbell Fly", group: "Chest" },
+    { id: "back1", name: "Lat Pulldown (Machine)", group: "Back" },
+    { id: "back2", name: "Seated Row (Machine)", group: "Back" },
+    { id: "back3", name: "Barbell Row", group: "Back" },
+    { id: "back4", name: "Dumbbell Row", group: "Back" },
+    { id: "shoulders1", name: "Shoulder Press (Machine)", group: "Shoulders" },
+    { id: "shoulders2", name: "Lateral Raise (Machine)", group: "Shoulders" },
+    { id: "shoulders3", name: "Rear Delt Fly (Machine)", group: "Shoulders" },
+    { id: "shoulders4", name: "Shoulder Press (Barbell)", group: "Shoulders" },
+    { id: "shoulders5", name: "Dumbbell Shoulder Press", group: "Shoulders" },
+    { id: "shoulders6", name: "Dumbbell Lateral Raise", group: "Shoulders" },
+    { id: "biceps1", name: "Bicep Curl (Machine)", group: "Biceps" },
+    { id: "biceps2", name: "Dumbbell Bicep Curl", group: "Biceps" },
+    { id: "triceps1", name: "Tricep Pushdown (Machine)", group: "Triceps" },
+    { id: "triceps2", name: "Dumbbell Tricep Extension", group: "Triceps" },
+    { id: "legs1", name: "Leg Press (Machine)", group: "Legs" },
+    { id: "legs2", name: "Leg Extension (Machine)", group: "Legs" },
+    { id: "legs3", name: "Leg Curl (Machine)", group: "Legs" },
+    { id: "legs4", name: "Calf Raise (Machine)", group: "Legs" },
+    { id: "legs5", name: "Squat (Barbell)", group: "Legs" },
+    { id: "legs6", name: "Deadlift (Barbell)", group: "Legs" },
+    { id: "legs7", name: "Dumbbell Lunge", group: "Legs" },
+    { id: "abs1", name: "Ab Crunch (Machine)", group: "Abs" }
+  ];
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const existing = localStorage.getItem("exercises");
+    if (!existing || JSON.parse(existing).length === 0) {
+      localStorage.setItem("exercises", JSON.stringify(defaultExercises));
+    }
+  });
+</script>
 
 <script>
   
@@ -183,24 +316,77 @@
     return grouped;
   }
 
-  function renderDropdowns() {
-    const exercises = loadExercises();
-    const exSel = document.getElementById("exercise");
-    const filterSel = document.getElementById("filterExercise");
-    exSel.innerHTML = "";
-    filterSel.innerHTML = '<option value="">-- All Exercises --</option>';
+  
+  
+  const defaultExercises = [
+    { id: "chest1", name: "Chest Press (Machine)", group: "Chest" },
+    { id: "chest2", name: "Incline Chest Press (Machine)", group: "Chest" },
+    { id: "chest3", name: "Pec Deck (Machine)", group: "Chest" },
+    { id: "chest4", name: "Bench Press (Barbell)", group: "Chest" },
+    { id: "chest5", name: "Incline Bench Press (Barbell)", group: "Chest" },
+    { id: "chest6", name: "Dumbbell Chest Press", group: "Chest" },
+    { id: "chest7", name: "Dumbbell Incline Press", group: "Chest" },
+    { id: "chest8", name: "Dumbbell Fly", group: "Chest" },
+    { id: "back1", name: "Lat Pulldown (Machine)", group: "Back" },
+    { id: "back2", name: "Seated Row (Machine)", group: "Back" },
+    { id: "back3", name: "Barbell Row", group: "Back" },
+    { id: "back4", name: "Dumbbell Row", group: "Back" },
+    { id: "shoulders1", name: "Shoulder Press (Machine)", group: "Shoulders" },
+    { id: "shoulders2", name: "Lateral Raise (Machine)", group: "Shoulders" },
+    { id: "shoulders3", name: "Rear Delt Fly (Machine)", group: "Shoulders" },
+    { id: "shoulders4", name: "Shoulder Press (Barbell)", group: "Shoulders" },
+    { id: "shoulders5", name: "Dumbbell Shoulder Press", group: "Shoulders" },
+    { id: "shoulders6", name: "Dumbbell Lateral Raise", group: "Shoulders" },
+    { id: "biceps1", name: "Bicep Curl (Machine)", group: "Biceps" },
+    { id: "biceps2", name: "Dumbbell Bicep Curl", group: "Biceps" },
+    { id: "triceps1", name: "Tricep Pushdown (Machine)", group: "Triceps" },
+    { id: "triceps2", name: "Dumbbell Tricep Extension", group: "Triceps" },
+    { id: "legs1", name: "Leg Press (Machine)", group: "Legs" },
+    { id: "legs2", name: "Leg Extension (Machine)", group: "Legs" },
+    { id: "legs3", name: "Leg Curl (Machine)", group: "Legs" },
+    { id: "legs4", name: "Calf Raise (Machine)", group: "Legs" },
+    { id: "legs5", name: "Squat (Barbell)", group: "Legs" },
+    { id: "legs6", name: "Deadlift (Barbell)", group: "Legs" },
+    { id: "legs7", name: "Dumbbell Lunge", group: "Legs" },
+    { id: "abs1", name: "Ab Crunch (Machine)", group: "Abs" }
+  ];
+
+
+function renderDropdowns() {
+    let exercises = JSON.parse(localStorage.getItem("exercises") || "[]");
+    if (exercises.length === 0) {
+      exercises = defaultExercises;
+      localStorage.setItem("exercises", JSON.stringify(defaultExercises));
+    }
+
+    const exerciseSelect = document.getElementById("exercise");
+    const filterSelect = document.getElementById("filterExercise");
+    exerciseSelect.innerHTML = "";
+    filterSelect.innerHTML = '<option value="">-- All Exercises --</option>';
+
     const grouped = groupExercises(exercises);
     for (const group in grouped) {
-      const exGroup = document.createElement("optgroup");
-      const flGroup = document.createElement("optgroup");
-      exGroup.label = group;
-      flGroup.label = group;
+      const groupEl1 = document.createElement("optgroup");
+      const groupEl2 = document.createElement("optgroup");
+      groupEl1.label = group;
+      groupEl2.label = group;
+
       grouped[group].forEach(ex => {
-        const opt1 = new Option(ex.name, ex.id);
-        const opt2 = new Option(ex.name, ex.id);
-        exGroup.appendChild(opt1);
-        flGroup.appendChild(opt2);
+        const opt1 = document.createElement("option");
+        const opt2 = document.createElement("option");
+        opt1.value = ex.id;
+        opt2.value = ex.id;
+        opt1.textContent = ex.name;
+        opt2.textContent = ex.name;
+        groupEl1.appendChild(opt1);
+        groupEl2.appendChild(opt2);
       });
+
+      exerciseSelect.appendChild(groupEl1);
+      filterSelect.appendChild(groupEl2);
+    }
+  }
+);
       exSel.appendChild(exGroup);
       filterSel.appendChild(flGroup);
     }
