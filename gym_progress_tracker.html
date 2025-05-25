@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gym Progress Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 1em;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    input, select, textarea, button {
+      margin: 0.3em 0;
+      padding: 0.5em;
+      font-size: 1em;
+      width: 100%;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+    th, td {
+      border: 1px solid #aaa;
+      padding: 0.5em;
+      text-align: center;
+    }
+    .set-inputs {
+      display: flex;
+      gap: 0.5em;
+    }
+    .set-inputs input {
+      width: 50%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gym Progress Tracker</h1>
+
+  <form id="workoutForm">
+    <label for="date">Date</label>
+    <input type="date" id="date" required />
+
+    <label for="exercise">Exercise</label>
+    <select id="exercise" required>
+        <optgroup label="Chest">
+          <option value="c8e48691-5fa8-43e4-b267-8e22b5a94c73">Chest Press (Machine)</option>
+          <option value="85d981a2-8d38-4658-a32c-b2b018a173f9">Incline Chest Press (Machine)</option>
+          <option value="195f9371-6dff-4e2f-a842-1e0194e137ce">Pec Deck (Machine)</option>
+          <option value="114ccd3a-390d-4457-8ec5-6577753752fc">Bench Press (Barbell)</option>
+          <option value="87aef8cd-c8f9-4811-8f61-01d08ad2a92f">Incline Bench Press (Barbell)</option>
+          <option value="f47189ee-b040-4b4e-b0a9-2b650575acfb">Dumbbell Chest Press</option>
+          <option value="822305e8-cb8b-490d-90e8-eb63f747d614">Dumbbell Incline Press</option>
+          <option value="d550da1e-e7c6-4108-a7c1-b61b662fc591">Dumbbell Fly</option>
+        </optgroup>
+        <optgroup label="Back">
+          <option value="58294f47-87e5-4bb2-8978-6cde2c9297e8">Lat Pulldown (Machine)</option>
+          <option value="78425cec-874d-4384-83a7-ac296fbea088">Seated Row (Machine)</option>
+          <option value="34f024cb-7b7a-42cb-9956-2bd578c08bd3">Barbell Row</option>
+          <option value="82e42f5e-237f-445b-a9d5-428f756be788">Dumbbell Row</option>
+        </optgroup>
+        <optgroup label="Shoulders">
+          <option value="2353131e-eac4-46ad-8b91-9f20af1734c1">Shoulder Press (Machine)</option>
+          <option value="f4578ce5-5e8f-4750-bac7-8c8a131e68df">Lateral Raise (Machine)</option>
+          <option value="2265a4b6-d2e4-4581-a925-f29bc9333a7f">Rear Delt Fly (Machine)</option>
+          <option value="aeae6b5f-2071-4254-ba2d-fe250d0ae22b">Shoulder Press (Barbell)</option>
+          <option value="4771fb23-13cf-48a8-b52c-911b9bebdbca">Dumbbell Shoulder Press</option>
+          <option value="eb5a1b59-6574-4888-a597-d3d7189f1dff">Dumbbell Lateral Raise</option>
+        </optgroup>
+        <optgroup label="Biceps">
+          <option value="4b53e498-bfa4-49ee-99f0-d6e1220603e6">Bicep Curl (Machine)</option>
+          <option value="23902803-2415-44df-8625-5c8227d928e7">Dumbbell Bicep Curl</option>
+        </optgroup>
+        <optgroup label="Triceps">
+          <option value="b13885d1-0f5d-4611-bbac-753a2ccfd2be">Tricep Pushdown (Machine)</option>
+          <option value="812a0b3b-17c9-43a1-bcb2-741112fe1b41">Dumbbell Tricep Extension</option>
+        </optgroup>
+        <optgroup label="Legs">
+          <option value="a148a4da-d296-45f0-9bd4-ea0dc8598a2d">Leg Press (Machine)</option>
+          <option value="738d3937-c7b1-4f8e-9a43-5ab8eddfc6db">Leg Extension (Machine)</option>
+          <option value="8b533e23-6bc7-4b69-8d1a-0cf0c2eb7436">Leg Curl (Machine)</option>
+          <option value="a52fb6e7-88e3-4e01-a4c2-c822f78dadf2">Calf Raise (Machine)</option>
+          <option value="c1351888-7e76-4e13-bd10-0b41cbe97890">Squat (Barbell)</option>
+          <option value="23a99ab1-659d-48bb-8a25-a0c1e8e62799">Deadlift (Barbell)</option>
+          <option value="2bafd46c-d94a-44a0-a904-f7c73b15b095">Dumbbell Lunge</option>
+        </optgroup>
+        <optgroup label="Abs">
+          <option value="2e4e8e26-6da6-4344-ad6b-3a259f15f79a">Ab Crunch (Machine)</option>
+        </optgroup>
+    </select>
+
+    <input type="text" id="newExercise" placeholder="Add new exercise" />
+    
+    <select id="newExerciseGroup">
+      <option value="Chest">Chest</option>
+      <option value="Back">Back</option>
+      <option value="Shoulders">Shoulders</option>
+      <option value="Biceps">Biceps</option>
+      <option value="Triceps">Triceps</option>
+      <option value="Legs">Legs</option>
+      <option value="Abs">Abs</option>
+      <option value="Other">Other</option>
+    </select>
+
+
+    <button type="button" onclick="addExercise()">Add</button>
+
+    <label>Set 1</label>
+    <div class="set-inputs">
+      <input type="number" id="reps1" placeholder="Reps" required />
+      <input type="number" id="weight1" placeholder="Weight (kg)" required />
+    </div>
+
+    <label>Set 2</label>
+    <div class="set-inputs">
+      <input type="number" id="reps2" placeholder="Reps" required />
+      <input type="number" id="weight2" placeholder="Weight (kg)" required />
+    </div>
+
+    <label>Set 3</label>
+    <div class="set-inputs">
+      <input type="number" id="reps3" placeholder="Reps" required />
+      <input type="number" id="weight3" placeholder="Weight (kg)" required />
+    </div>
+
+    <label for="notes">Notes</label>
+    <textarea id="notes" placeholder="Optional notes"></textarea>
+
+    <button type="submit">Save Workout</button>
+  </form>
+
+  <h2>Workout Log</h2>
+
+  <label for="filterExercise">Filter by Exercise</label>
+  <select id="filterExercise" onchange="loadLogs()">
+    <option value="">-- All Exercises --</option>
+  </select>
+
+  <table id="logTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Exercise</th>
+        <th>Set 1 (Reps × kg)</th>
+        <th>Set 2 (Reps × kg)</th>
+        <th>Set 3 (Reps × kg)</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <button onclick="exportCSV()">Export to CSV</button>
+
+  <script>
+    const defaultExercises = [{ id: "c8e48691-5fa8-43e4-b267-8e22b5a94c73", name: "Chest Press (Machine)" }, { id: "85d981a2-8d38-4658-a32c-b2b018a173f9", name: "Incline Chest Press (Machine)" }, { id: "195f9371-6dff-4e2f-a842-1e0194e137ce", name: "Pec Deck (Machine)" }, { id: "114ccd3a-390d-4457-8ec5-6577753752fc", name: "Bench Press (Barbell)" }, { id: "87aef8cd-c8f9-4811-8f61-01d08ad2a92f", name: "Incline Bench Press (Barbell)" }, { id: "f47189ee-b040-4b4e-b0a9-2b650575acfb", name: "Dumbbell Chest Press" }, { id: "822305e8-cb8b-490d-90e8-eb63f747d614", name: "Dumbbell Incline Press" }, { id: "d550da1e-e7c6-4108-a7c1-b61b662fc591", name: "Dumbbell Fly" }, { id: "58294f47-87e5-4bb2-8978-6cde2c9297e8", name: "Lat Pulldown (Machine)" }, { id: "78425cec-874d-4384-83a7-ac296fbea088", name: "Seated Row (Machine)" }, { id: "34f024cb-7b7a-42cb-9956-2bd578c08bd3", name: "Barbell Row" }, { id: "82e42f5e-237f-445b-a9d5-428f756be788", name: "Dumbbell Row" }, { id: "2353131e-eac4-46ad-8b91-9f20af1734c1", name: "Shoulder Press (Machine)" }, { id: "f4578ce5-5e8f-4750-bac7-8c8a131e68df", name: "Lateral Raise (Machine)" }, { id: "2265a4b6-d2e4-4581-a925-f29bc9333a7f", name: "Rear Delt Fly (Machine)" }, { id: "aeae6b5f-2071-4254-ba2d-fe250d0ae22b", name: "Shoulder Press (Barbell)" }, { id: "4771fb23-13cf-48a8-b52c-911b9bebdbca", name: "Dumbbell Shoulder Press" }, { id: "eb5a1b59-6574-4888-a597-d3d7189f1dff", name: "Dumbbell Lateral Raise" }, { id: "4b53e498-bfa4-49ee-99f0-d6e1220603e6", name: "Bicep Curl (Machine)" }, { id: "23902803-2415-44df-8625-5c8227d928e7", name: "Dumbbell Bicep Curl" }, { id: "b13885d1-0f5d-4611-bbac-753a2ccfd2be", name: "Tricep Pushdown (Machine)" }, { id: "812a0b3b-17c9-43a1-bcb2-741112fe1b41", name: "Dumbbell Tricep Extension" }, { id: "a148a4da-d296-45f0-9bd4-ea0dc8598a2d", name: "Leg Press (Machine)" }, { id: "738d3937-c7b1-4f8e-9a43-5ab8eddfc6db", name: "Leg Extension (Machine)" }, { id: "8b533e23-6bc7-4b69-8d1a-0cf0c2eb7436", name: "Leg Curl (Machine)" }, { id: "a52fb6e7-88e3-4e01-a4c2-c822f78dadf2", name: "Calf Raise (Machine)" }, { id: "c1351888-7e76-4e13-bd10-0b41cbe97890", name: "Squat (Barbell)" }, { id: "23a99ab1-659d-48bb-8a25-a0c1e8e62799", name: "Deadlift (Barbell)" }, { id: "2bafd46c-d94a-44a0-a904-f7c73b15b095", name: "Dumbbell Lunge" }, { id: "2e4e8e26-6da6-4344-ad6b-3a259f15f79a", name: "Ab Crunch (Machine)" }];
+
+    function generateId() {
+      return 'xxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = Math.random() * 16 | 0;
+        const v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    function loadExercises() {
+      let exercises = JSON.parse(localStorage.getItem("exercises") || "null");
+      if (!exercises) {
+        exercises = defaultExercises;
+        localStorage.setItem("exercises", JSON.stringify(exercises));
+      }
+      const filterSelect = document.getElementById("filterExercise");
+      filterSelect.innerHTML = '<option value="">-- All Exercises --</option>';
+      exercises.forEach(ex => {
+        const option = document.createElement("option");
+        option.value = ex.id;
+        option.textContent = ex.name;
+        filterSelect.appendChild(option);
+      });
+    }
+
+    function addExercise() {
+      const newExName = document.getElementById("newExercise").value.trim();
+      const newGroup = document.getElementById("newExerciseGroup").value.trim() || "Other";
+      if (!newExName) return;
+      let exercises = JSON.parse(localStorage.getItem("exercises") || "[]");
+      const existing = exercises.find(e => e.name === newExName);
+      if (!existing) {
+        const newEx = { id: generateId(), name: newExName, group: newGroup };
+        exercises.push(newEx);
+        localStorage.setItem("exercises", JSON.stringify(exercises));
+        const select = document.getElementById("exercise");
+        const optGroup = [...select.children].find(opt => opt.label === newGroup);
+        const opt = document.createElement("option");
+        opt.value = newEx.id;
+        opt.textContent = newEx.name;
+        if (optGroup) {
+          optGroup.appendChild(opt);
+        } else {
+          const newOptGroup = document.createElement("optgroup");
+          newOptGroup.label = newGroup;
+          newOptGroup.appendChild(opt);
+          select.appendChild(newOptGroup);
+        }
+        select.value = newEx.id;
+      }
+      document.getElementById("newExercise").value = "";
+      document.getElementById("newExerciseGroup").value = "";
+    };
+        exercises.push(newEx);
+        localStorage.setItem("exercises", JSON.stringify(exercises));
+        const select = document.getElementById("exercise");
+        const opt = document.createElement("option");
+        opt.value = newEx.id;
+        opt.textContent = newEx.name;
+        select.appendChild(opt);
+        select.value = newEx.id;
+      }
+      document.getElementById("newExercise").value = "";
+    }
+
+    function getExerciseNameById(id) {
+      const allOptions = document.getElementById("exercise").options;
+      for (let i = 0; i < allOptions.length; i++) {
+        if (allOptions[i].value === id) return allOptions[i].textContent;
+      }
+      return "(Unknown)";
+    }
+
+    document.getElementById("date").valueAsDate = new Date();
+
+    const form = document.getElementById("workoutForm");
+    const tableBody = document.querySelector("#logTable tbody");
+
+    function loadLogs() {
+      const filterId = document.getElementById("filterExercise").value;
+      const logs = JSON.parse(localStorage.getItem("gymLogs") || "[]");
+      tableBody.innerHTML = "";
+      logs.filter(log => !filterId || log.exerciseId === filterId).forEach((log) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${log.date}</td>
+          <td>${getExerciseNameById(log.exerciseId)}</td>
+          <td>${log.reps1}x${log.weight1}</td>
+          <td>${log.reps2}x${log.weight2}</td>
+          <td>${log.reps3}x${log.weight3}</td>
+          <td>${log.notes}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const log = {
+        date: document.getElementById("date").value,
+        exerciseId: document.getElementById("exercise").value,
+        reps1: document.getElementById("reps1").value,
+        weight1: document.getElementById("weight1").value,
+        reps2: document.getElementById("reps2").value,
+        weight2: document.getElementById("weight2").value,
+        reps3: document.getElementById("reps3").value,
+        weight3: document.getElementById("weight3").value,
+        notes: document.getElementById("notes").value.trim()
+      };
+      const logs = JSON.parse(localStorage.getItem("gymLogs") || "[]");
+      logs.push(log);
+      localStorage.setItem("gymLogs", JSON.stringify(logs));
+      form.reset();
+      document.getElementById("date").valueAsDate = new Date();
+      loadLogs();
+    });
+
+    function exportCSV() {
+      const logs = JSON.parse(localStorage.getItem("gymLogs") || "[]");
+      if (!logs.length) {
+        alert("No data to export.");
+        return;
+      }
+      const header = ["Date", "Exercise", "Set 1", "Set 2", "Set 3", "Notes"];
+      const rows = logs.map(log => [
+        log.date,
+        getExerciseNameById(log.exerciseId),
+        `${log.reps1}x${log.weight1}`,
+        `${log.reps2}x${log.weight2}`,
+        `${log.reps3}x${log.weight3}`,
+        log.notes
+      ]);
+      const csvContent = [header, ...rows].map(e => e.join(",")).join("\n");
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", "gym_progress.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    loadExercises();
+    loadLogs();
+  </script>
+</body>
+</html>
