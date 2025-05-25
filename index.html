@@ -53,19 +53,6 @@
     <label for="exercise">Exercise</label>
     <select id="exercise" required></select>
 
-    <input type="text" id="newExercise" placeholder="Add new exercise" />
-    <select id="newExerciseGroup">
-      <option value="Chest">Chest</option>
-      <option value="Back">Back</option>
-      <option value="Shoulders">Shoulders</option>
-      <option value="Biceps">Biceps</option>
-      <option value="Triceps">Triceps</option>
-      <option value="Legs">Legs</option>
-      <option value="Abs">Abs</option>
-      <option value="Other">Other</option>
-    </select>
-    <button type="button" onclick="addExercise()">Add</button>
-
     <label>Set 1</label>
     <div class="set-inputs">
       <input type="number" id="reps1" placeholder="Reps" required />
@@ -114,7 +101,25 @@
   <button onclick="exportCSV()">Export to CSV</button>
 
   <h2>Manage Exercises</h2>
-  <div id="exerciseManager"></div>
+  
+<div id="addExerciseSection">
+  <h3>Add New Exercise</h3>
+  <div style="display: flex; gap: 0.5em; margin-bottom: 1em;">
+    <input type="text" id="newExercise" placeholder="Exercise name" />
+    <select id="newExerciseGroup">
+      <option value="Chest">Chest</option>
+      <option value="Back">Back</option>
+      <option value="Shoulders">Shoulders</option>
+      <option value="Biceps">Biceps</option>
+      <option value="Triceps">Triceps</option>
+      <option value="Legs">Legs</option>
+      <option value="Abs">Abs</option>
+      <option value="Other">Other</option>
+    </select>
+    <button type="button" onclick="addExercise()">Add</button>
+  </div>
+</div>
+<div id="exerciseManager"></div>
 
 <script>
   const defaultExercises = [
